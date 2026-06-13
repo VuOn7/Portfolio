@@ -1,388 +1,838 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
-  </head>
-  <body>
-    <nav id="desktop-nav">
-      <div class="logo">Bhuwan Awasthi</div>
-      <div>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Hobbies</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">Bhuwan Awasthi</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bhuwan Awasthi — Geoscientist · Remote Sensing & GIS</title>
+<meta name="description" content="Bhuwan Awasthi — geoscientist and doctoral researcher in Remote Sensing & GIS. Glaciers, landslides, disaster risk, and open geospatial tooling across the Himalaya." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#ECEEE9;
+    --paper-2:#E4E7E0;
+    --panel:#F4F5F1;
+    --ink:#14201E;
+    --ink-soft:#37433F;
+    --muted:#6A766F;
+    --glacier:#117A8B;
+    --glacier-deep:#0B4D58;
+    --glacier-light:#62AEBA;
+    --hazard:#C26A33;
+    --border:rgba(20,32,30,.14);
+    --border-strong:rgba(20,32,30,.28);
+    --contour:rgba(11,77,88,.42);
+    --display:"Fraunces",Georgia,serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"Space Mono","SFMono-Regular",monospace;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--glacier);color:var(--paper)}
+
+  /* ---------- utilities ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--glacier-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";width:26px;height:1px;background:var(--glacier);display:inline-block;
+  }
+  .section{padding:120px 0;position:relative}
+  .section-head{margin-bottom:56px;max-width:680px}
+  .section-head h2{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(2rem,5vw,3.1rem);
+    line-height:1.05;
+    letter-spacing:-.01em;
+    margin-top:18px;
+  }
+  .coord{
+    font-family:var(--mono);
+    font-size:.7rem;
+    letter-spacing:.04em;
+    color:var(--muted);
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(236,238,233,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{font-family:var(--display);font-size:1.18rem;font-weight:500;letter-spacing:-.01em}
+  .brand small{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.12em;display:block;margin-top:-3px}
+  .nav-links{display:flex;gap:30px;list-style:none;align-items:center}
+  .nav-links a{font-size:.86rem;color:var(--ink-soft);position:relative;padding:6px 0;transition:color .2s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--glacier);transition:width .25s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}
+  .nav-links a:hover::after,.nav-links a:focus-visible::after{width:100%}
+  .nav-cta{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    border:1px solid var(--border-strong);border-radius:2px;padding:9px 16px;color:var(--ink);transition:.2s;
+  }
+  .nav-cta:hover,.nav-cta:focus-visible{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+  .burger span{width:24px;height:2px;background:var(--ink);display:block;transition:.3s}
+  .mobile-menu{display:none}
+
+  /* ---------- hero ---------- */
+  #hero{position:relative;min-height:calc(100vh - 68px);display:flex;align-items:center;overflow:hidden}
+  #contour-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-inner{position:relative;z-index:2;width:100%}
+  .hero-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:60px;align-items:center}
+  .hero-status{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+    background:var(--panel);border:1px solid var(--border);border-radius:40px;
+    padding:7px 15px;color:var(--ink-soft);margin-bottom:26px;
+  }
+  .hero-status .dot{width:8px;height:8px;border-radius:50%;background:var(--glacier);box-shadow:0 0 0 0 rgba(17,122,139,.5);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(17,122,139,.45)}70%{box-shadow:0 0 0 9px rgba(17,122,139,0)}100%{box-shadow:0 0 0 0 rgba(17,122,139,0)}}
+  .hero-name{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(3rem,8.5vw,6rem);
+    line-height:.96;
+    letter-spacing:-.025em;
+    margin:6px 0 18px;
+  }
+  .hero-role{font-size:clamp(1.05rem,2.4vw,1.4rem);color:var(--ink-soft);max-width:30ch;font-weight:400}
+  .hero-role b{color:var(--glacier-deep);font-weight:600}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .btn{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:13px 22px;border-radius:2px;cursor:pointer;border:1px solid var(--ink);transition:.22s;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .btn-fill{background:var(--ink);color:var(--paper)}
+  .btn-fill:hover,.btn-fill:focus-visible{background:var(--glacier-deep);border-color:var(--glacier-deep)}
+  .btn-line{background:transparent;color:var(--ink)}
+  .btn-line:hover,.btn-line:focus-visible{background:var(--ink);color:var(--paper)}
+  .socials{display:flex;gap:8px;margin-top:30px}
+  .socials a{
+    width:42px;height:42px;border:1px solid var(--border-strong);border-radius:50%;
+    display:grid;place-items:center;color:var(--ink-soft);transition:.22s;
+  }
+  .socials a:hover,.socials a:focus-visible{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:translateY(-2px)}
+  .socials svg{width:18px;height:18px}
+
+  /* hero portrait */
+  .portrait-card{position:relative}
+  .portrait-frame{
+    position:relative;border:1px solid var(--border-strong);background:var(--panel);
+    padding:10px;border-radius:3px;
+  }
+  .portrait-frame img{aspect-ratio:4/5;object-fit:cover;width:100%;border-radius:2px;background:var(--paper-2)}
+  .portrait-fallback{
+    aspect-ratio:4/5;display:none;place-items:center;background:linear-gradient(135deg,var(--glacier-deep),var(--glacier));
+    color:var(--paper);font-family:var(--display);font-size:3.4rem;border-radius:2px;
+  }
+  .portrait-tag{
+    position:absolute;bottom:-14px;left:18px;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;
+    background:var(--ink);color:var(--paper);padding:6px 12px;border-radius:2px;
+  }
+  .elev-rail{
+    position:absolute;top:8px;right:-18px;display:flex;flex-direction:column;gap:0;
+    font-family:var(--mono);font-size:.6rem;color:var(--muted);text-align:right;
+  }
+  .elev-rail span{padding:3px 0;border-right:2px solid var(--border-strong);padding-right:8px}
+
+  /* ---------- stats ---------- */
+  .stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--panel)}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:34px 26px;border-right:1px solid var(--border)}
+  .stat:last-child{border-right:0}
+  .stat-num{font-family:var(--display);font-size:2.4rem;line-height:1;color:var(--glacier-deep)}
+  .stat-lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-top:10px;display:block}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:60px;align-items:start}
+  .about-body p{color:var(--ink-soft);margin-bottom:18px;font-size:1.02rem}
+  .about-body p:first-child{font-size:1.18rem;color:var(--ink);font-family:var(--display);line-height:1.5;font-weight:400}
+  .edu{border-left:1px solid var(--border-strong);padding-left:0}
+  .edu-item{position:relative;padding:0 0 28px 28px;border-left:2px solid var(--border)}
+  .edu-item:last-child{padding-bottom:0}
+  .edu-item::before{content:"";position:absolute;left:-6px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--glacier)}
+  .edu-item.now::before{background:var(--glacier)}
+  .edu-date{font-family:var(--mono);font-size:.72rem;color:var(--glacier-deep);letter-spacing:.04em}
+  .edu-item h4{font-size:1.02rem;margin:5px 0 3px;font-weight:600}
+  .edu-item p{font-size:.88rem;color:var(--muted)}
+  .edu-item em{color:var(--ink-soft);font-style:italic}
+
+  /* ---------- experience timeline ---------- */
+  .xp{display:grid;gap:0}
+  .xp-row{
+    display:grid;grid-template-columns:200px 1fr;gap:40px;
+    padding:34px 0;border-top:1px solid var(--border);
+  }
+  .xp-row:last-child{border-bottom:1px solid var(--border)}
+  .xp-when{font-family:var(--mono);font-size:.78rem;color:var(--glacier-deep);letter-spacing:.02em}
+  .xp-where{font-size:.84rem;color:var(--muted);margin-top:6px}
+  .xp-role{font-family:var(--display);font-size:1.35rem;font-weight:500;letter-spacing:-.01em}
+  .xp-list{list-style:none;margin-top:12px;display:grid;gap:8px}
+  .xp-list li{position:relative;padding-left:20px;color:var(--ink-soft);font-size:.95rem}
+  .xp-list li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:1px;background:var(--hazard)}
+
+  /* ---------- two-col cards (research / teaching) ---------- */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+  .duo h3{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:26px;padding-bottom:12px;border-bottom:1px solid var(--border-strong)}
+  .mini{padding:18px 0;border-bottom:1px solid var(--border)}
+  .mini:last-child{border-bottom:0}
+  .mini .t{font-weight:600;font-size:1rem}
+  .mini .m{font-size:.86rem;color:var(--muted);margin-top:2px}
+  .mini .d{font-size:.92rem;color:var(--ink-soft);margin-top:7px}
+  .mini .when{font-family:var(--mono);font-size:.68rem;color:var(--glacier-deep);letter-spacing:.04em}
+
+  /* ---------- skills ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+  .skillset h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:16px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:.82rem;border:1px solid var(--border-strong);border-radius:2px;padding:6px 11px;color:var(--ink-soft);background:var(--panel);transition:.2s}
+  .tag:hover{border-color:var(--glacier);color:var(--glacier-deep)}
+
+  /* ---------- field / map ---------- */
+  #field{background:var(--ink);color:var(--paper)}
+  #field .eyebrow{color:var(--glacier-light)}
+  #field .eyebrow::before{background:var(--glacier-light)}
+  #field .section-head h2{color:var(--paper)}
+  #field .coord{color:rgba(236,238,233,.5)}
+  .field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(236,238,233,.12);border:1px solid rgba(236,238,233,.12)}
+  .field-cell{background:var(--ink);padding:26px 22px}
+  .field-cell .c{font-family:var(--mono);font-size:.66rem;color:var(--glacier-light);letter-spacing:.04em}
+  .field-cell h4{font-size:1.05rem;margin:8px 0 6px;font-weight:600}
+  .field-cell p{font-size:.88rem;color:rgba(236,238,233,.65);line-height:1.55}
+
+  /* ---------- publications ---------- */
+  .pub-group{margin-bottom:44px}
+  .pub-group:last-child{margin-bottom:0}
+  .pub-group > h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:20px}
+  .pub{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--border)}
+  .pub .n{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  .pub p{font-size:.96rem;color:var(--ink-soft);line-height:1.55}
+  .pub .venue{display:block;margin-top:5px;font-size:.82rem;color:var(--muted);font-style:italic}
+  .pub a{color:var(--glacier-deep);border-bottom:1px solid var(--border-strong);transition:.2s}
+  .pub a:hover{border-color:var(--glacier)}
+
+  /* ---------- awards ---------- */
+  .award-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .award{border:1px solid var(--border);background:var(--panel);padding:30px;border-radius:3px;position:relative;overflow:hidden}
+  .award::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--hazard)}
+  .award .y{font-family:var(--mono);font-size:.72rem;color:var(--hazard);letter-spacing:.06em}
+  .award h4{font-family:var(--display);font-size:1.25rem;font-weight:500;margin:10px 0 8px;line-height:1.25}
+  .award p{font-size:.9rem;color:var(--muted)}
+
+  /* ---------- contact ---------- */
+  #contact{background:var(--panel);border-top:1px solid var(--border)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .contact-lead{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.12;font-weight:400;letter-spacing:-.01em}
+  .contact-lead a{color:var(--glacier-deep);border-bottom:2px solid var(--glacier)}
+  .contact-list{display:grid;gap:2px}
+  .contact-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+  .contact-row svg{width:20px;height:20px;color:var(--glacier-deep);flex-shrink:0}
+  .contact-row .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block}
+  .contact-row .val{font-size:.98rem}
+  .contact-row a.val:hover{color:var(--glacier-deep)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:rgba(236,238,233,.6);padding:40px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot .brand{color:var(--paper)}
+  .foot .coord{color:rgba(236,238,233,.45)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .portrait-card{max-width:340px}
+    .about-grid,.duo,.contact-grid{grid-template-columns:1fr;gap:40px}
+    .skills-grid{grid-template-columns:1fr 1fr}
+    .field-grid{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:0}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--border)}
+    .award-grid{grid-template-columns:1fr}
+    .xp-row{grid-template-columns:1fr;gap:14px}
+  }
+  @media(max-width:620px){
+    .wrap{padding:0 20px}
+    .section{padding:80px 0}
+    .nav-links,.nav-cta{display:none}
+    .burger{display:flex}
+    .mobile-menu{display:block;position:fixed;inset:68px 0 auto 0;background:var(--paper);border-bottom:1px solid var(--border);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;z-index:40}
+    .mobile-menu.open{max-height:340px}
+    .mobile-menu ul{list-style:none;padding:14px 20px}
+    .mobile-menu li{padding:13px 0;border-bottom:1px solid var(--border)}
+    .mobile-menu li:last-child{border-bottom:0}
+    .skills-grid,.field-grid,.stats-grid{grid-template-columns:1fr}
+    .stat{border-right:0;border-bottom:1px solid var(--border)}
+    .field-cell{border-bottom:1px solid rgba(236,238,233,.12)}
+    .pub{grid-template-columns:1fr;gap:6px}
+    .elev-rail{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a class="brand" href="#hero">Bhuwan Awasthi<small>GEOSCIENCE · RS/GIS</small></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#field">Field</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="./assets/Bhuwan_Awasthi_CV.pdf" download>Download CV</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research &amp; Teaching</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#field">Field</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="./assets/Bhuwan_Awasthi_CV.pdf" download>Download CV ↓</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <canvas id="contour-canvas" aria-hidden="true"></canvas>
+  <div class="hero-inner wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="hero-status"><span class="dot"></span>Doctoral candidate · AIT, Thailand · 2025–present</span>
+        <p class="eyebrow">Remote Sensing &amp; Geographic Information Systems</p>
+        <h1 class="hero-name">Bhuwan<br>Awasthi</h1>
+        <p class="hero-role">Geoscientist mapping <b>glaciers, landslides and disaster risk</b> across the Himalaya — and building open tools to make that science reproducible.</p>
+        <div class="hero-actions">
+          <a class="btn btn-fill" href="#research">Explore the work
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-line" href="#contact">Get in touch</a>
         </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Hobbies</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-      </div>
-    </nav>
-    <section id="profile">
-      <div class="section__pic-container">
-        <img src="./assets/profile-pic.jpg" alt="Bhuwan Awasthi profile picture" />
-      </div>
-      <div class="section__text">
-        <p class="section__text__p1">Hello, I'm</p>
-        <h1 class="title">Bhuwan Awasthi</h1>
-        <p class="section__text__p2">Engineering Geologist</p>
-        <div class="btn-container">
-          <button
-            class="btn btn-color-2"
-            onclick="window.open('')"
-          >
-            Download CV
-          </button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">
-            Contact Info
-          </button>
-        </div>
-        <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="location.href='https://www.linkedin.com/in/bhuwan-awasthi-341081174/'"
-          />
-          
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="location.href='https://github.com/VuOn7/VuOn7'"
-          />
-          <img
-            src="./assets/blogger.png"
-            alt="My Blogspot"
-            class="icon"
-            onclick="location.href='https://merophilosophy.blogspot.com/'" 
-          />
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">Get To Know More</p>
-      <h1 class="title">About Me</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
-          <img
-            src="./assets/about-pic.jpg"
-            alt="Profile picture"
-            class="about-pic"
-          />
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Experience icon"
-                class="icon"
-              />
-              <h3>Experience</h3>
-              <p>4.5 years <br />Disaster Risk Management, GIS, Remote Sensing and Machine Learning</p>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Education</h3>
-              <p>B.Sc. Geology, 2016<br />M.Sc. Engineering Geology, 2020</p>
-            </div>
-          </div>
-          <div class="text-container">
-            <p>
-              I began my professional journey as a research intern at the Nepal Academy of Science and Technology, where I was immersed in evaluating and enhancing water quality standards. My path evolved through a role at the Community Rural Development Society, focusing on disaster risk reduction and community engagement, to an engineering geologist position at NDRRMA, where I honed my skills in geological and geotechnical assessments. As a Program Officer at Forum for Energy and Environment Development Pvt. Ltd., I led comprehensive environmental risk assessments and mitigation initiatives, integrating advanced GIS and machine learning techniques to address geo-hazards and promote sustainable environmental management, most significant projects included landslide early warning system and integrated watershed managment plans.
-            </p>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#experience'"
-      />
-    </section>
-    <section id="experience">
-      <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Experience</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <h2 class="experience-sub-title">SKILLS</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>GIS,
-                    FLOW-R</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>GeoSLOPE</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Scoops3D</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Google EE </h3>
-              
-                  <p>Basic</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Python</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>OpenLISEM</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="details-container">
-            <h2 class="experience-sub-title">PROFICIENCIES</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Machine Learning</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>MS Office</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>HEC-RAS,
-                    HEC-SSP
-                    HEC-HMS</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>SNAP/ENVI</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#projects'"
-      />
-    </section>
-    <section id="Hobbies">
-      <p class="section__text__p1">Browse My</p>
-      <h1 class="title">Hobbies</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-1.jpg"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Travel</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-2.jpg"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Meditation</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-3.PNG"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Music</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#contact'"
-      />
-    </section>
-    <section id="contact">
-      <p class="section__text__p1">Get in Touch</p>
-      <h1 class="title">Contact Me</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:examplemail@gmail.com">mebhuwanawasthi@gmail.com</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com">linkedin</a></p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/bhuwan-awasthi-341081174/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4v13h-4V8zM8 8h3.8v1.8h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21H8V8z"/></svg>
+          </a>
+          <a href="https://github.com/VuOn7" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C18 5 19 5.3 19 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          </a>
+          <a href="https://merophilosophy.blogspot.com/" target="_blank" rel="noopener" aria-label="Blog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5a2 2 0 0 1 2-2h8l6 6v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>
+          </a>
         </div>
       </div>
-    </section>
-    <footer>
-      <nav>
-        <div class="nav-links-container">
-          <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Hobbies</a></li>
-            <li><a href="#contact">Contact</a></li>
+      <div class="portrait-card">
+        <div class="elev-rail">
+          <span>8848 m</span><span>6000 m</span><span>5400 m</span><span>4900 m</span><span>2700 m</span>
+        </div>
+        <div class="portrait-frame">
+          <img src="./assets/profile-pic.jpg" alt="Bhuwan Awasthi" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
+          <div class="portrait-fallback">BA</div>
+          <span class="portrait-tag">27.99°N · 86.85°E — Khumbu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-num">2013</span><span class="stat-lab">Field work since</span></div>
+      <div class="stat"><span class="stat-num">20+</span><span class="stat-lab">Districts surveyed</span></div>
+      <div class="stat"><span class="stat-num">10+</span><span class="stat-lab">Papers &amp; articles</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-lab">Countries of work</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Get to know more</p>
+      <h2>From Himalayan slopes to reproducible geoscience.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>I work where mountains move — studying glaciers, landslides and floods, and turning satellite data and field measurements into hazard maps that local governments can act on.</p>
+        <p>My path began with a water-quality internship at the Nepal Academy of Science and Technology, then community-level disaster risk reduction with CRDS, geotechnical and slope-stability assessment for NDRRMA, and a GIS &amp; DRR lead role at the Forum for Energy and Environment Development — where I helped install a pilot landslide early-warning system in Neelakantha. Most recently, as Early Action Coordinator with People in Need, I designed impact-based forecasting triggers with meteorological and government partners.</p>
+        <p>Today I'm a doctoral candidate in Remote Sensing &amp; GIS at the Asian Institute of Technology, building open, dependency-free Python workflows (PyGILE) so that landslide and debris-flow modelling can be repeated by anyone, anywhere.</p>
+      </div>
+      <div class="edu reveal">
+        <div class="edu-item now">
+          <span class="edu-date">2025 — PRESENT</span>
+          <h4>PhD candidate · Remote Sensing &amp; GIS</h4>
+          <p>Asian Institute of Technology, Thailand<br>Advisor: Dr. Sarawut Ninsawat</p>
+        </div>
+        <div class="edu-item">
+          <span class="edu-date">2016 — 2018</span>
+          <h4>M.Sc. Engineering Geology</h4>
+          <p>Tri-Chandra Campus, Tribhuvan University, Nepal<br><em>Glacial surface lowering &amp; supraglacial ponds, Khumbu Glacier, Everest region</em></p>
+        </div>
+        <div class="edu-item">
+          <span class="edu-date">2012 — 2016</span>
+          <h4>B.Sc. Geology</h4>
+          <p>Tri-Chandra Campus, Tribhuvan University, Nepal<br><em>Geological &amp; engineering-geological mapping, Butwal–Tansen, Western Nepal</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience" class="section" style="background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Explore my</p>
+      <h2>Professional experience</h2>
+    </div>
+    <div class="xp">
+      <div class="xp-row reveal">
+        <div>
+          <div class="xp-when">Aug — Dec 2024</div>
+          <div class="xp-where">People in Need (PIN), Nepal</div>
+        </div>
+        <div>
+          <div class="xp-role">Early Action Coordinator</div>
+          <ul class="xp-list">
+            <li>Designed and implemented multi-hazard early-action initiatives using impact-based forecasting (IBF).</li>
+            <li>Developed trigger protocols with government, meteorological experts and local partners.</li>
+            <li>Led preparedness assessments and simulations, mainstreaming gender and environment into DRR planning.</li>
           </ul>
         </div>
-      </nav>
-      <p>Copyright &#169; 2024 Bhuwan Awasthi. All Rights Reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+      </div>
+      <div class="xp-row reveal">
+        <div>
+          <div class="xp-when">Aug 2022 — Jan 2024</div>
+          <div class="xp-where">Forum for Energy &amp; Environment Development, Nepal</div>
+        </div>
+        <div>
+          <div class="xp-role">Program Officer · GIS &amp; DRR Unit</div>
+          <ul class="xp-list">
+            <li>Led hazard, susceptibility and risk modelling using Python, GIS and remote sensing.</li>
+            <li>Supervised installation of a pilot landslide early-warning system — soil-moisture sensors, rain gauges and extensometers — in Neelakantha Municipality.</li>
+            <li>Supported multi-hazard early-warning frameworks for local governments.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="xp-row reveal">
+        <div>
+          <div class="xp-when">Apr — Jun 2022</div>
+          <div class="xp-where">Civil Society Engineering Solution · for NDRRMA</div>
+        </div>
+        <div>
+          <div class="xp-role">Engineering Geologist Consultant · Cat-DDO</div>
+          <ul class="xp-list">
+            <li>Conducted geotechnical and slope-stability assessments in landslide- and flood-prone areas of Western Nepal.</li>
+            <li>Analysed hazard conditions and prepared technical mitigation reports under the Catastrophe Deferred Drawdown project.</li>
+            <li>Backed evidence-based recommendations, including structural interventions and relocation proposals.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="xp-row reveal">
+        <div>
+          <div class="xp-when">Jun 2017 — Mar 2019</div>
+          <div class="xp-where">Community Rural Development Society (CRDS), Nepal</div>
+        </div>
+        <div>
+          <div class="xp-role">Technical Assistant · Disaster Risk Reduction</div>
+          <ul class="xp-list">
+            <li>Built GIS-based landslide and flood susceptibility maps and community vulnerability assessments.</li>
+            <li>Developed IEC materials and ran awareness and capacity-building programs in hazard-prone municipalities of Western Nepal.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH & TEACHING ============ -->
+<section id="research" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Beyond the job</p>
+      <h2>Research, exchange &amp; teaching</h2>
+    </div>
+    <div class="duo">
+      <div class="reveal">
+        <h3>Research &amp; Exchange</h3>
+        <div class="mini">
+          <span class="when">MAY — JUL 2025</span>
+          <div class="t">Visiting Research Student · Geoinformatics</div>
+          <div class="m">Osaka Metropolitan University, Japan — Prof. Venkatesh Raghavan</div>
+          <p class="d">Built Python frameworks for landslide and debris-flow risk, and reproducible dependency-free Jupyter workflows (PyGILE / PyGILE-Plus).</p>
+        </div>
+        <div class="mini">
+          <span class="when">APR — MAY 2019</span>
+          <div class="t">MSc Thesis Research</div>
+          <div class="m">National Geographic Society &amp; Tribhuvan University</div>
+          <p class="d">Field glaciology on Khumbu Glacier — surface-lowering trends and supraglacial pond expansion via UAV mapping and remote sensing in the Dingboche region.</p>
+        </div>
+        <div class="mini">
+          <span class="when">JAN — APR 2017</span>
+          <div class="t">Research Internship</div>
+          <div class="m">Nepal Academy of Science &amp; Technology (NAST)</div>
+          <p class="d">Laboratory water-quality assessment under national drinking-water standards and research on purification technologies.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <h3>Workshops &amp; Teaching</h3>
+        <div class="mini">
+          <span class="when">2025 — 2026</span>
+          <div class="t">PyGILE Workshops · Instructor</div>
+          <div class="m">FOSS4G Asia (Nashik) · Naresuan Univ. · Wadia College (Pune) · AIT</div>
+          <p class="d">Hands-on Python, machine learning and geospatial programming with containerized, reproducible Jupyter modules.</p>
+        </div>
+        <div class="mini">
+          <span class="when">AUG 2025</span>
+          <div class="t">Asian Summer School · Geoinformatics</div>
+          <div class="m">AIT × Chubu University, Thailand</div>
+          <p class="d">Trained 16 international students in QGIS-based spatial analysis for sustainable development.</p>
+        </div>
+        <div class="mini">
+          <span class="when">APR 2025</span>
+          <div class="t">Capacity Development · Land-Use Zoning</div>
+          <div class="m">AIT — for Bhutanese government officials</div>
+          <p class="d">GIS-based land-suitability analysis in QGIS and TerrSet, with slope-stability and factor-of-safety modelling in open-source Python.</p>
+        </div>
+        <div class="mini">
+          <span class="when">2021 — 2023</span>
+          <div class="t">GIS Trainer · NGSS &amp; Purvadhar</div>
+          <div class="m">Nepal Geological Students' Society · Purvadhar Eng. Solutions</div>
+          <p class="d">Lectures and practical sessions on QGIS and remote-sensing applications for DRR and multidisciplinary planning.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="section" style="background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">The toolbox</p>
+      <h2>Technical skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skillset reveal">
+        <h4>Programming</h4>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">GeoPandas</span><span class="tag">PyGILE-Plus</span><span class="tag">Machine Learning</span>
+        </div>
+      </div>
+      <div class="skillset reveal">
+        <h4>GIS &amp; Remote Sensing</h4>
+        <div class="tags">
+          <span class="tag">QGIS</span><span class="tag">ArcGIS</span><span class="tag">GRASS</span><span class="tag">SAGA</span><span class="tag">TerrSet</span><span class="tag">SNAP / ENVI</span><span class="tag">Google EE</span>
+        </div>
+      </div>
+      <div class="skillset reveal">
+        <h4>Hydrology &amp; Hazard</h4>
+        <div class="tags">
+          <span class="tag">HEC-RAS</span><span class="tag">HEC-HMS</span><span class="tag">HEC-SSP</span><span class="tag">OpenLISEM</span><span class="tag">FLOW-R</span>
+        </div>
+      </div>
+      <div class="skillset reveal">
+        <h4>Geotechnical</h4>
+        <div class="tags">
+          <span class="tag">GeoStudio</span><span class="tag">GeoSLOPE</span><span class="tag">Scoops3D</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIELD ============ -->
+<section id="field" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">On the ground</p>
+      <h2>Field experience</h2>
+      <p class="coord" style="margin-top:14px">Landslide &amp; flood hazard assessment across 20+ districts of Nepal, 2013–2024 — ground-truthing, local-government consultation, and validation of model-derived hazard maps.</p>
+    </div>
+    <div class="field-grid">
+      <div class="field-cell reveal">
+        <span class="c">EVEREST REGION</span>
+        <h4>Glaciological surveys</h4>
+        <p>UAV mapping and surface-lowering analysis on the Khumbu Glacier, Dingboche.</p>
+      </div>
+      <div class="field-cell reveal">
+        <span class="c">EAST / WEST NEPAL</span>
+        <h4>River-basin hydrology</h4>
+        <p>East &amp; West Rapti, Babai, Duduwakhola and Tinau basins.</p>
+      </div>
+      <div class="field-cell reveal">
+        <span class="c">DHADING · NUWAKOT</span>
+        <h4>Landslide EWS &amp; slope stability</h4>
+        <p>Geotechnical instrumentation for early warning, and slope-stability investigations.</p>
+      </div>
+      <div class="field-cell reveal">
+        <span class="c">EASTERN NEPAL</span>
+        <h4>Integrated watershed plans</h4>
+        <p>Field survey and data collection across 10 municipalities.</p>
+      </div>
+      <div class="field-cell reveal">
+        <span class="c">KANCHANPUR</span>
+        <h4>Environmental impact</h4>
+        <p>Data collection for environmental impact assessments.</p>
+      </div>
+      <div class="field-cell reveal">
+        <span class="c">MAKAWANPUR · BARA</span>
+        <h4>Geological mapping</h4>
+        <p>Field geological mapping in the central lowlands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications" class="section" style="background:var(--panel);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected writing</p>
+      <h2>Publications &amp; talks</h2>
+    </div>
+
+    <div class="pub-group reveal">
+      <h3>Preprint</h3>
+      <div class="pub">
+        <span class="n">[1]</span>
+        <div>
+          <p>Devkota, S., Gautam, S., Acharya, G., <strong>Awasthi, B.</strong> &amp; Adhikari, B.R. — Developing a community-based landslide early-warning system for data-scarce areas: a case of Neelakantha Municipality, Dhading, Nepal.</p>
+          <span class="venue">SSRN · DOI 10.2139/ssrn.4655307</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-group reveal">
+      <h3>Conferences &amp; Abstracts</h3>
+      <div class="pub">
+        <span class="n">[2]</span>
+        <div>
+          <p><strong>Awasthi, B.</strong>, Ninsawat, S., Raghavan, V. &amp; Nemoto, T. — PyGILE / PyGILE-Plus: a Python GeoInformatics Lab Environment (v1.0).</p>
+          <span class="venue">Workshop &amp; oral presentation · FOSS4G Asia 2026, Nashik, India · DOI 10.5281/zenodo.16144781</span>
+        </div>
+      </div>
+      <div class="pub">
+        <span class="n">[3]</span>
+        <div>
+          <p><strong>Awasthi, B.</strong>, Goraju, S., Lohani, S., Karki, S., Devkota, S. &amp; Bhatta, Y.R. — Predictive analytics for road-safety enhancement on the Mugling–Narayanghat road section, Nepal.</p>
+          <span class="venue">Int'l Conf. on Big Data for Disaster Response · ADB &amp; Tohoku University, Sendai, Japan, 2024 (under revision)</span>
+        </div>
+      </div>
+      <div class="pub">
+        <span class="n">[4]</span>
+        <div>
+          <p><strong>Awasthi, B.</strong>, Gajurel, A., Tait, A., Elvin, S., Elmore, A.C., Putnam, A.E. et al. — Recent trend of glacial surface lowering in Khumbu Glacier, Everest region, Nepal.</p>
+          <span class="venue">Abstract 713477 · AGU Fall Meeting 2020</span>
+        </div>
+      </div>
+      <div class="pub">
+        <span class="n">[5]</span>
+        <div>
+          <p>Mattas, L.A., Putnam, A.E., Strand, P., Gajurel, A., <strong>Awasthi, B.</strong> et al. — Documenting the last glacial maximum and termination of the Khumbu Glacier, Nepalese Himalaya.</p>
+          <span class="venue">GC53G-1237 · AGU Fall Meeting 2019, San Francisco</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-group reveal">
+      <h3>Field notes &amp; articles</h3>
+      <div class="pub">
+        <span class="n">[6]</span>
+        <div>
+          <p>Maganini, M., <strong>Awasthi, B.</strong> &amp; Albayrak, A. — Assessing landslide hazards from space.</p>
+          <span class="venue">Notes from the Field · NASA Earth Observatory, 2025</span>
+        </div>
+      </div>
+      <div class="pub">
+        <span class="n">[7]</span>
+        <div>
+          <p><strong>Awasthi, B.</strong> — Strengthening community ties through disaster preparedness and early action in Nepal · The geological connection of religious sites in Nepal · and other essays.</p>
+          <span class="venue">Onlinekhabar, 2022–2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AWARDS ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Recognition</p>
+      <h2>Awards &amp; scholarships</h2>
+    </div>
+    <div class="award-grid">
+      <div class="award reveal">
+        <span class="y">2025 — 2027</span>
+        <h4>Government of Japan Scholarship for Doctoral Studies</h4>
+        <p>Asian Institute of Technology, Thailand — full tuition, registration and living support.</p>
+      </div>
+      <div class="award reveal">
+        <span class="y">2019</span>
+        <h4>National Geographic Society Research Grant</h4>
+        <p>With Tribhuvan University, Nepal — financial support for master's thesis research on the Khumbu Glacier.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Get in touch</p>
+        <p class="contact-lead">Working on glaciers, hazards or open geospatial tools? <a href="mailto:st125724@ait.asia">Let's talk.</a></p>
+      </div>
+      <div class="contact-list reveal">
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <div><span class="lab">Email</span><a class="val" href="mailto:st125724@ait.asia">st125724@ait.asia</a></div>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4v13h-4V8zM8 8h3.8v1.8h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21H8V8z"/></svg>
+          <div><span class="lab">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/bhuwan-awasthi-341081174/" target="_blank" rel="noopener">/in/bhuwan-awasthi</a></div>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C18 5 19 5.3 19 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          <div><span class="lab">GitHub</span><a class="val" href="https://github.com/VuOn7" target="_blank" rel="noopener">github.com/VuOn7</a></div>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div><span class="lab">Based in</span><span class="val">Pathum Thani, Thailand · from Darchula, Nepal</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#hero">Bhuwan Awasthi</a>
+    <span class="coord">© 2026 · Last updated June 2026 · All rights reserved</span>
+  </div>
+</footer>
+
+<script>
+  // ---- mobile nav ----
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  }));
+
+  // ---- scroll reveal ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---- contour-line hero (topographic signature) ----
+  (function(){
+    const canvas = document.getElementById('contour-canvas');
+    const ctx = canvas.getContext('2d');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w, h, dpr, t = 0, cx, cy;
+    const rings = 11;          // contour bands
+    const segs = 160;          // smoothness per ring
+    const css = getComputedStyle(document.documentElement);
+    const line = css.getPropertyValue('--contour').trim() || 'rgba(11,77,88,.4)';
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      // peak sits toward the right, where the portrait is
+      cx = w * 0.72; cy = h * 0.42;
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      ctx.lineWidth = 1;
+      const base = Math.min(w,h) * 0.06;
+      const gap  = Math.min(w,h) * 0.052;
+      for (let r = 0; r < rings; r++){
+        const radius = base + r * gap;
+        // emphasise every 5th "index contour"
+        const index = r % 5 === 0;
+        ctx.globalAlpha = index ? 0.55 : 0.32;
+        ctx.lineWidth = index ? 1.4 : 0.9;
+        ctx.strokeStyle = line;
+        ctx.beginPath();
+        for (let i = 0; i <= segs; i++){
+          const a = (i / segs) * Math.PI * 2;
+          // organic distortion so rings read like terrain, not circles
+          const wob = Math.sin(a*3 + r*0.6 + t) * (radius*0.10)
+                    + Math.sin(a*5 - r*0.4 - t*0.7) * (radius*0.05)
+                    + Math.cos(a*2 + t*0.5) * (radius*0.06);
+          const rr = radius + wob;
+          const x = cx + Math.cos(a) * rr * 1.15;
+          const y = cy + Math.sin(a) * rr;
+          i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function loop(){ t += 0.0016; draw(); requestAnimationFrame(loop); }
+
+    window.addEventListener('resize', () => { resize(); if (reduce) draw(); });
+    resize();
+    if (reduce) draw(); else loop();
+  })();
+</script>
+</body>
 </html>
