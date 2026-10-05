@@ -1035,12 +1035,19 @@ gtag('config', 'G-CNC3FWJHTF');
     function pubHTML(item){
       const title = val((item.title || {}).title) || 'Untitled';
       const sub = val((item.title || {}).subtitle);
-      const fullTitle = sub ? title + ': ' + sub : title;
+      const fullTitle = (sub ? title + ': ' + sub : title).trim().replace(/[.\s]+$/, '');
       const doi = doiOf(item);
       const href = linkOf(item, doi);
       const pd = item['publication-date'] || {};
       const year = val(pd.year);
-      const venueBits = [val(item['journal-title']), year, doi ? 'DOI ' + doi : ''].filter(Boolean).map(esc);
+      let venue = val(item['journal-title']);
+      if (/^unpublished$/i.test(venue.trim())) venue = '';
+      if (!venue) {
+        if (/^10\.5194\/egusphere/i.test(doi)) venue = 'EGUsphere';
+        else if (/^10\.2139\/ssrn/i.test(doi)) venue = 'SSRN';
+        else if (/^10\.13140\/rg/i.test(doi)) venue = 'ResearchGate';
+      }
+      const venueBits = [venue, year, doi ? 'DOI ' + doi : ''].filter(Boolean).map(esc);
       const titleHTML = href
         ? '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(fullTitle) + '.</a>'
         : esc(fullTitle) + '.';
@@ -1082,7 +1089,9 @@ gtag('config', 'G-CNC3FWJHTF');
       // that ORCID has labelled as a journal article still lands under Preprints
       const PREPRINT_DOI = /^10\.(2139\/ssrn|31223\/|21203\/rs|22541\/au|48550\/arxiv|1101\/|20944\/preprints|5194\/egusphere|1002\/essoar|31219\/|31234\/|31235\/|26434\/chemrxiv)/i;
       const PREPRINT_VENUE = /\b(ssrn|arxiv|biorxiv|medrxiv|eartharxiv|essoar|egusphere|research ?square|authorea|preprints\.org|osf preprints|chemrxiv|socarxiv|preprint)\b/i;
-      const isPreprint = it => PREPRINT_DOI.test(doiOf(it)) || PREPRINT_VENUE.test(val(it['journal-title']));
+      const isPreprint = it => PREPRINT_DOI.test(doiOf(it)) || PREPRINT_VENUE.test(val(it['journal-title'])) ||
+        // ResearchGate uploads (DOI 10.13140/RG…) labelled as journal articles are unreviewed manuscripts
+        (/^10\.13140\/rg/i.test(doiOf(it)) && /journal/i.test(String(it.type || '')));
       const preprints = buckets.find(b => b.title === 'Preprints');
 
       items.forEach(it => {
