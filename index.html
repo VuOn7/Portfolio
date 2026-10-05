@@ -24,7 +24,7 @@ gtag('config', 'G-CNC3FWJHTF');
     --panel:#F4F5F1;
     --ink:#14201E;
     --ink-soft:#37433F;
-    --muted:#6A766F;
+    --muted:#5E6A63;
     --glacier:#117A8B;
     --glacier-deep:#0B4D58;
     --glacier-light:#62AEBA;
@@ -35,15 +35,16 @@ gtag('config', 'G-CNC3FWJHTF');
     --display:"Fraunces",Georgia,serif;
     --body:"Inter",system-ui,sans-serif;
     --mono:"Space Mono","SFMono-Regular",monospace;
-    --maxw:1120px;
+    --maxw:1180px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  /* Larger base size: every rem on the page scales from this (18px instead of 16px) */
+  html{scroll-behavior:smooth;font-size:112.5%}
   body{
     font-family:var(--body);
     color:var(--ink);
     background:var(--paper);
-    line-height:1.6;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
@@ -55,8 +56,8 @@ gtag('config', 'G-CNC3FWJHTF');
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
   .eyebrow{
     font-family:var(--mono);
-    font-size:.72rem;
-    letter-spacing:.18em;
+    font-size:.8rem;
+    letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--glacier-deep);
     display:inline-flex;
@@ -67,7 +68,7 @@ gtag('config', 'G-CNC3FWJHTF');
     content:"";width:26px;height:1px;background:var(--glacier);display:inline-block;
   }
   .section{padding:120px 0;position:relative}
-  .section-head{margin-bottom:56px;max-width:680px}
+  .section-head{margin-bottom:56px;max-width:720px}
   .section-head h2{
     font-family:var(--display);
     font-weight:400;
@@ -78,8 +79,8 @@ gtag('config', 'G-CNC3FWJHTF');
   }
   .coord{
     font-family:var(--mono);
-    font-size:.7rem;
-    letter-spacing:.04em;
+    font-size:.82rem;
+    letter-spacing:.03em;
     color:var(--muted);
   }
 
@@ -90,16 +91,16 @@ gtag('config', 'G-CNC3FWJHTF');
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{font-family:var(--display);font-size:1.18rem;font-weight:500;letter-spacing:-.01em}
-  .brand small{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.12em;display:block;margin-top:-3px}
-  .nav-links{display:flex;gap:30px;list-style:none;align-items:center}
-  .nav-links a{font-size:.86rem;color:var(--ink-soft);position:relative;padding:6px 0;transition:color .2s}
+  .brand small{font-family:var(--mono);font-size:.66rem;color:var(--muted);letter-spacing:.12em;display:block;margin-top:-3px}
+  .nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+  .nav-links a{font-size:.9rem;color:var(--ink-soft);position:relative;padding:6px 0;transition:color .2s}
   .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--glacier);transition:width .25s}
   .nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}
   .nav-links a:hover::after,.nav-links a:focus-visible::after{width:100%}
   .nav-cta{
-    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;
     border:1px solid var(--border-strong);border-radius:2px;padding:9px 16px;color:var(--ink);transition:.2s;
   }
   .nav-cta:hover,.nav-cta:focus-visible{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -108,13 +109,13 @@ gtag('config', 'G-CNC3FWJHTF');
   .mobile-menu{display:none}
 
   /* ---------- hero ---------- */
-  #hero{position:relative;min-height:calc(100vh - 68px);display:flex;align-items:center;overflow:hidden}
+  #hero{position:relative;min-height:calc(100vh - 72px);display:flex;align-items:center;overflow:hidden}
   #contour-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   .hero-inner{position:relative;z-index:2;width:100%}
   .hero-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:60px;align-items:center}
   .hero-status{
     display:inline-flex;align-items:center;gap:9px;
-    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;
     background:var(--panel);border:1px solid var(--border);border-radius:40px;
     padding:7px 15px;color:var(--ink-soft);margin-bottom:26px;
   }
@@ -128,11 +129,11 @@ gtag('config', 'G-CNC3FWJHTF');
     letter-spacing:-.025em;
     margin:6px 0 18px;
   }
-  .hero-role{font-size:clamp(1.05rem,2.4vw,1.4rem);color:var(--ink-soft);max-width:30ch;font-weight:400}
+  .hero-role{font-size:clamp(1.1rem,2.4vw,1.45rem);color:var(--ink-soft);max-width:32ch;font-weight:400}
   .hero-role b{color:var(--glacier-deep);font-weight:600}
   .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
   .btn{
-    font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
     padding:13px 22px;border-radius:2px;cursor:pointer;border:1px solid var(--ink);transition:.22s;
     display:inline-flex;align-items:center;gap:9px;
   }
@@ -142,7 +143,7 @@ gtag('config', 'G-CNC3FWJHTF');
   .btn-line:hover,.btn-line:focus-visible{background:var(--ink);color:var(--paper)}
   .socials{display:flex;gap:8px;margin-top:30px}
   .socials a{
-    width:42px;height:42px;border:1px solid var(--border-strong);border-radius:50%;
+    width:44px;height:44px;border:1px solid var(--border-strong);border-radius:50%;
     display:grid;place-items:center;color:var(--ink-soft);transition:.22s;
   }
   .socials a:hover,.socials a:focus-visible{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:translateY(-2px)}
@@ -161,66 +162,66 @@ gtag('config', 'G-CNC3FWJHTF');
   }
   .portrait-tag{
     position:absolute;bottom:-14px;left:18px;
-    font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;
     background:var(--ink);color:var(--paper);padding:6px 12px;border-radius:2px;
   }
   .elev-rail{
-    position:absolute;top:8px;right:-18px;display:flex;flex-direction:column;gap:0;
-    font-family:var(--mono);font-size:.6rem;color:var(--muted);text-align:right;
+    position:absolute;top:8px;right:-20px;display:flex;flex-direction:column;gap:0;
+    font-family:var(--mono);font-size:.68rem;color:var(--muted);text-align:right;
   }
   .elev-rail span{padding:3px 0;border-right:2px solid var(--border-strong);padding-right:8px}
 
   /* ---------- stats ---------- */
   .stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--panel)}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr)}
   .stat{padding:34px 26px;border-right:1px solid var(--border)}
   .stat:last-child{border-right:0}
   .stat-num{font-family:var(--display);font-size:2.4rem;line-height:1;color:var(--glacier-deep)}
-  .stat-lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-top:10px;display:block}
+  .stat-lab{font-family:var(--mono);font-size:.8rem;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:10px;display:block}
 
   /* ---------- about ---------- */
   .about-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:60px;align-items:start}
-  .about-body p{color:var(--ink-soft);margin-bottom:18px;font-size:1.02rem}
-  .about-body p:first-child{font-size:1.18rem;color:var(--ink);font-family:var(--display);line-height:1.5;font-weight:400}
+  .about-body p{color:var(--ink-soft);margin-bottom:18px;font-size:1.06rem}
+  .about-body p:first-child{font-size:1.22rem;color:var(--ink);font-family:var(--display);line-height:1.5;font-weight:400}
   .edu{border-left:1px solid var(--border-strong);padding-left:0}
   .edu-item{position:relative;padding:0 0 28px 28px;border-left:2px solid var(--border)}
   .edu-item:last-child{padding-bottom:0}
   .edu-item::before{content:"";position:absolute;left:-6px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--glacier)}
   .edu-item.now::before{background:var(--glacier)}
-  .edu-date{font-family:var(--mono);font-size:.72rem;color:var(--glacier-deep);letter-spacing:.04em}
-  .edu-item h4{font-size:1.02rem;margin:5px 0 3px;font-weight:600}
-  .edu-item p{font-size:.88rem;color:var(--muted)}
+  .edu-date{font-family:var(--mono);font-size:.8rem;color:var(--glacier-deep);letter-spacing:.03em}
+  .edu-item h4{font-size:1.06rem;margin:5px 0 3px;font-weight:600}
+  .edu-item p{font-size:.95rem;color:var(--muted)}
   .edu-item em{color:var(--ink-soft);font-style:italic}
 
   /* ---------- experience timeline ---------- */
   .xp{display:grid;gap:0}
   .xp-row{
-    display:grid;grid-template-columns:200px 1fr;gap:40px;
+    display:grid;grid-template-columns:210px 1fr;gap:40px;
     padding:34px 0;border-top:1px solid var(--border);
   }
   .xp-row:last-child{border-bottom:1px solid var(--border)}
-  .xp-when{font-family:var(--mono);font-size:.78rem;color:var(--glacier-deep);letter-spacing:.02em}
-  .xp-where{font-size:.84rem;color:var(--muted);margin-top:6px}
-  .xp-role{font-family:var(--display);font-size:1.35rem;font-weight:500;letter-spacing:-.01em}
+  .xp-when{font-family:var(--mono);font-size:.85rem;color:var(--glacier-deep);letter-spacing:.02em}
+  .xp-where{font-size:.92rem;color:var(--muted);margin-top:6px}
+  .xp-role{font-family:var(--display);font-size:1.4rem;font-weight:500;letter-spacing:-.01em}
   .xp-list{list-style:none;margin-top:12px;display:grid;gap:8px}
-  .xp-list li{position:relative;padding-left:20px;color:var(--ink-soft);font-size:.95rem}
-  .xp-list li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:1px;background:var(--hazard)}
+  .xp-list li{position:relative;padding-left:20px;color:var(--ink-soft);font-size:1rem}
+  .xp-list li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--hazard)}
 
   /* ---------- two-col cards (research / teaching) ---------- */
   .duo{display:grid;grid-template-columns:1fr 1fr;gap:60px}
-  .duo h3{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:26px;padding-bottom:12px;border-bottom:1px solid var(--border-strong)}
+  .duo h3{font-family:var(--mono);font-size:.84rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:26px;padding-bottom:12px;border-bottom:1px solid var(--border-strong)}
   .mini{padding:18px 0;border-bottom:1px solid var(--border)}
   .mini:last-child{border-bottom:0}
-  .mini .t{font-weight:600;font-size:1rem}
-  .mini .m{font-size:.86rem;color:var(--muted);margin-top:2px}
-  .mini .d{font-size:.92rem;color:var(--ink-soft);margin-top:7px}
-  .mini .when{font-family:var(--mono);font-size:.68rem;color:var(--glacier-deep);letter-spacing:.04em}
+  .mini .t{font-weight:600;font-size:1.06rem}
+  .mini .m{font-size:.94rem;color:var(--muted);margin-top:2px}
+  .mini .d{font-size:1rem;color:var(--ink-soft);margin-top:7px}
+  .mini .when{font-family:var(--mono);font-size:.78rem;color:var(--glacier-deep);letter-spacing:.03em}
 
   /* ---------- skills ---------- */
   .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-  .skillset h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:16px}
+  .skillset h4{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:16px}
   .tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{font-size:.82rem;border:1px solid var(--border-strong);border-radius:2px;padding:6px 11px;color:var(--ink-soft);background:var(--panel);transition:.2s}
+  .tag{font-size:.9rem;border:1px solid var(--border-strong);border-radius:2px;padding:6px 11px;color:var(--ink-soft);background:var(--panel);transition:.2s}
   .tag:hover{border-color:var(--glacier);color:var(--glacier-deep)}
 
   /* ---------- field / map ---------- */
@@ -228,21 +229,30 @@ gtag('config', 'G-CNC3FWJHTF');
   #field .eyebrow{color:var(--glacier-light)}
   #field .eyebrow::before{background:var(--glacier-light)}
   #field .section-head h2{color:var(--paper)}
-  #field .coord{color:rgba(236,238,233,.5)}
+  #field .coord{color:rgba(236,238,233,.68);line-height:1.6}
   .field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(236,238,233,.12);border:1px solid rgba(236,238,233,.12)}
   .field-cell{background:var(--ink);padding:26px 22px}
-  .field-cell .c{font-family:var(--mono);font-size:.66rem;color:var(--glacier-light);letter-spacing:.04em}
-  .field-cell h4{font-size:1.05rem;margin:8px 0 6px;font-weight:600}
-  .field-cell p{font-size:.88rem;color:rgba(236,238,233,.65);line-height:1.55}
+  .field-cell .c{font-family:var(--mono);font-size:.76rem;color:var(--glacier-light);letter-spacing:.04em}
+  .field-cell h4{font-size:1.1rem;margin:8px 0 6px;font-weight:600}
+  .field-cell p{font-size:.97rem;color:rgba(236,238,233,.75);line-height:1.6}
 
   /* ---------- publications ---------- */
+  .pub-sync{
+    display:inline-flex;align-items:center;gap:9px;margin-top:16px;
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.03em;color:var(--muted);
+  }
+  .pub-sync .dot{width:8px;height:8px;border-radius:50%;background:var(--border-strong);flex-shrink:0}
+  .pub-sync.live .dot{background:#A6CE39}
+  .pub-sync a{color:var(--glacier-deep);border-bottom:1px solid var(--border-strong)}
+  .pub-sync a:hover{border-color:var(--glacier)}
   .pub-group{margin-bottom:44px}
   .pub-group:last-child{margin-bottom:0}
-  .pub-group > h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:20px}
-  .pub{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--border)}
-  .pub .n{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
-  .pub p{font-size:.96rem;color:var(--ink-soft);line-height:1.55}
-  .pub .venue{display:block;margin-top:5px;font-size:.82rem;color:var(--muted);font-style:italic}
+  #orcid-pubs{margin-bottom:44px}
+  .pub-group > h3{font-family:var(--mono);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier-deep);margin-bottom:20px}
+  .pub{display:grid;grid-template-columns:40px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--border)}
+  .pub .n{font-family:var(--mono);font-size:.86rem;color:var(--muted)}
+  .pub p{font-size:1.02rem;color:var(--ink-soft);line-height:1.6}
+  .pub .venue{display:block;margin-top:5px;font-size:.9rem;color:var(--muted);font-style:italic}
   .pub a{color:var(--glacier-deep);border-bottom:1px solid var(--border-strong);transition:.2s}
   .pub a:hover{border-color:var(--glacier)}
 
@@ -250,18 +260,18 @@ gtag('config', 'G-CNC3FWJHTF');
   .award-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
   .award{border:1px solid var(--border);background:var(--panel);padding:30px;border-radius:3px;position:relative;overflow:hidden}
   .award::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--hazard)}
-  .award .y{font-family:var(--mono);font-size:.72rem;color:var(--hazard);letter-spacing:.06em}
-  .award h4{font-family:var(--display);font-size:1.25rem;font-weight:500;margin:10px 0 8px;line-height:1.25}
-  .award p{font-size:.9rem;color:var(--muted)}
+  .award .y{font-family:var(--mono);font-size:.8rem;color:var(--hazard);letter-spacing:.05em}
+  .award h4{font-family:var(--display);font-size:1.3rem;font-weight:500;margin:10px 0 8px;line-height:1.25}
+  .award p{font-size:.98rem;color:var(--muted)}
 
   /* ---------- affiliation ---------- */
   .affil{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
   .affil-name{font-family:var(--display);font-size:clamp(1.4rem,3vw,2rem);font-weight:500;letter-spacing:-.01em;margin:14px 0 8px}
-  .affil-desc{color:var(--muted);font-size:.95rem;max-width:42ch}
+  .affil-desc{color:var(--muted);font-size:1rem;max-width:44ch}
   .affil-links{display:flex;gap:10px;flex-wrap:wrap}
   .affil-links a{
     display:inline-flex;align-items:center;gap:9px;
-    font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;
     border:1px solid var(--border-strong);border-radius:2px;padding:11px 16px;color:var(--ink);transition:.22s;
   }
   .affil-links a svg{width:17px;height:17px;color:var(--glacier-deep);transition:.22s}
@@ -277,15 +287,15 @@ gtag('config', 'G-CNC3FWJHTF');
   .contact-list{display:grid;gap:2px}
   .contact-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
   .contact-row svg{width:20px;height:20px;color:var(--glacier-deep);flex-shrink:0}
-  .contact-row .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block}
-  .contact-row .val{font-size:.98rem}
+  .contact-row .lab{font-family:var(--mono);font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:block}
+  .contact-row .val{font-size:1.02rem}
   .contact-row a.val:hover{color:var(--glacier-deep)}
 
   /* ---------- footer ---------- */
   footer{background:var(--ink);color:rgba(236,238,233,.6);padding:40px 0}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   .foot .brand{color:var(--paper)}
-  .foot .coord{color:rgba(236,238,233,.45)}
+  .foot .coord{color:rgba(236,238,233,.55)}
 
   /* ---------- reveal ---------- */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
@@ -298,25 +308,27 @@ gtag('config', 'G-CNC3FWJHTF');
     .about-grid,.duo,.contact-grid{grid-template-columns:1fr;gap:40px}
     .skills-grid{grid-template-columns:1fr 1fr}
     .field-grid{grid-template-columns:1fr 1fr}
-    .stats-grid{grid-template-columns:1fr 1fr}
-    .stat:nth-child(2){border-right:0}
-    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--border)}
     .award-grid{grid-template-columns:1fr}
     .xp-row{grid-template-columns:1fr;gap:14px}
   }
+  @media(max-width:1000px){
+    .nav-links{gap:20px}
+  }
   @media(max-width:620px){
+    html{font-size:106.25%}
     .wrap{padding:0 20px}
     .section{padding:80px 0}
     .nav-links,.nav-cta{display:none}
     .burger{display:flex}
-    .mobile-menu{display:block;position:fixed;inset:68px 0 auto 0;background:var(--paper);border-bottom:1px solid var(--border);
+    .mobile-menu{display:block;position:fixed;inset:72px 0 auto 0;background:var(--paper);border-bottom:1px solid var(--border);
       max-height:0;overflow:hidden;transition:max-height .35s ease;z-index:40}
-    .mobile-menu.open{max-height:340px}
+    .mobile-menu.open{max-height:400px}
     .mobile-menu ul{list-style:none;padding:14px 20px}
     .mobile-menu li{padding:13px 0;border-bottom:1px solid var(--border)}
     .mobile-menu li:last-child{border-bottom:0}
     .skills-grid,.field-grid,.stats-grid{grid-template-columns:1fr}
     .stat{border-right:0;border-bottom:1px solid var(--border)}
+    .stat:last-child{border-bottom:0}
     .field-cell{border-bottom:1px solid rgba(236,238,233,.12)}
     .pub{grid-template-columns:1fr;gap:6px}
     .elev-rail{display:none}
@@ -381,6 +393,9 @@ gtag('config', 'G-CNC3FWJHTF');
           <a href="https://github.com/VuOn7" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C18 5 19 5.3 19 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
           </a>
+          <a href="https://orcid.org/0000-0003-2052-2618" target="_blank" rel="noopener" aria-label="ORCID">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 17.4H5.93V7.38h1.44V17.4zM6.65 6.3a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zM10.2 7.38h3.9c3.7 0 5.33 2.65 5.33 5.01 0 2.57-2.01 5.01-5.31 5.01H10.2V7.38zm1.44 1.3v7.42h2.3c3.26 0 4-2.48 4-3.71 0-2.01-1.28-3.71-4.08-3.71h-2.22z"/></svg>
+          </a>
           <a href="https://merophilosophy.blogspot.com/" target="_blank" rel="noopener" aria-label="Blog">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5a2 2 0 0 1 2-2h8l6 6v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></svg>
           </a>
@@ -406,7 +421,6 @@ gtag('config', 'G-CNC3FWJHTF');
     <div class="stats-grid">
       <div class="stat"><span class="stat-num">2013</span><span class="stat-lab">Field work since</span></div>
       <div class="stat"><span class="stat-num">20+</span><span class="stat-lab">Districts surveyed</span></div>
-      <div class="stat"><span class="stat-num">10</span><span class="stat-lab">Papers &amp; articles</span></div>
       <div class="stat"><span class="stat-num">4</span><span class="stat-lab">Countries of work</span></div>
     </div>
   </div>
@@ -658,95 +672,104 @@ gtag('config', 'G-CNC3FWJHTF');
     <div class="section-head reveal">
       <p class="eyebrow">Selected writing</p>
       <h2>Publications &amp; talks</h2>
+      <p class="pub-sync" id="pubSync"><span class="dot"></span><span id="pubSyncText">Research outputs from <a href="https://orcid.org/0000-0003-2052-2618" target="_blank" rel="noopener">ORCID</a></span></p>
     </div>
 
-    <div class="pub-group reveal">
-      <h3>Peer-reviewed journal articles</h3>
-      <div class="pub">
-        <span class="n">[1]</span>
-        <div>
-          <p>
-            <strong>Awasthi, B.</strong>, Ninsawat, S., Dhakal, S., Goraju, S., Lohani, S., Karki, S. &amp; Som-ard, J. —
-            <a href="https://doi.org/10.1080/10106049.2026.2732733" target="_blank" rel="noopener">
-              Integrated watershed-based debris flow hazard assessment for road corridor management: a case study of the Mugling&ndash;Narayanghat road, Nepal.
-            </a>
-          </p>
-          <span class="venue">Geocarto International · 41(1), 2026 · DOI 10.1080/10106049.2026.2732733</span>
+    <!--
+      Everything inside #orcid-pubs is replaced automatically with the live list
+      from ORCID when the page loads. The entries below are only a fallback,
+      shown if ORCID can't be reached.
+    -->
+    <div id="orcid-pubs">
+      <div class="pub-group reveal">
+        <h3>Peer-reviewed journal articles</h3>
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              <strong>Awasthi, B.</strong>, Ninsawat, S., Dhakal, S., Goraju, S., Lohani, S., Karki, S. &amp; Som-ard, J. —
+              <a href="https://doi.org/10.1080/10106049.2026.2732733" target="_blank" rel="noopener">
+                Integrated watershed-based debris flow hazard assessment for road corridor management: a case study of the Mugling&ndash;Narayanghat road, Nepal.
+              </a>
+            </p>
+            <span class="venue">Geocarto International · 41(1), 2026 · DOI 10.1080/10106049.2026.2732733</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group reveal">
+        <h3>Preprints</h3>
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              Devkota, S., Gautam, S., Acharya, G., <strong>Awasthi, B.</strong> &amp; Adhikari, B.R. —
+              <a href="https://doi.org/10.2139/ssrn.4655307" target="_blank" rel="noopener">
+                Developing a community-based landslide early-warning system for data-scarce areas: a case of Neelakantha Municipality, Dhading, Nepal.
+              </a>
+            </p>
+            <span class="venue">SSRN · DOI 10.2139/ssrn.4655307</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-group reveal">
+        <h3>Conferences &amp; abstracts</h3>
+
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              <strong>Awasthi, B.</strong>, Ninsawat, S., Raghavan, V. &amp; Nemoto, T. —
+              <a href="https://doi.org/10.5281/zenodo.16144781" target="_blank" rel="noopener">
+                PyGILE / PyGILE-Plus: a Python GeoInformatics Lab Environment (v1.0).
+              </a>
+            </p>
+            <span class="venue">Workshop &amp; oral presentation · FOSS4G Asia 2026, Nashik, India · DOI 10.5281/zenodo.16144781</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              <strong>Awasthi, B.</strong>, Goraju, S., Lohani, S., Karki, S., Devkota, S. &amp; Bhatta, Y.R. —
+              Predictive analytics for road-safety enhancement on the Mugling–Narayanghat road section, Nepal.
+            </p>
+            <span class="venue">Int'l Conf. on Big Data for Disaster Response and Management in Asia and the Pacific · ADB &amp; Tohoku University, Sendai, Japan, 2024 (under revision)</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              <strong>Awasthi, B.</strong>, Gajurel, A., Tait, A., Elvin, S., Elmore, A.C., Putnam, A.E. et al. —
+              Recent trend of glacial surface lowering in Khumbu Glacier, Everest region, Nepal.
+            </p>
+            <span class="venue">Abstract 713477 · AGU Fall Meeting 2020</span>
+          </div>
+        </div>
+
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
+              Mattas, L.A., Putnam, A.E., Strand, P., Gajurel, A., <strong>Awasthi, B.</strong> et al. —
+              Documenting the last glacial maximum and termination of the Khumbu Glacier, Nepalese Himalaya.
+            </p>
+            <span class="venue">GC53G-1237 · AGU Fall Meeting 2019, San Francisco</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="pub-group reveal">
-      <h3>Preprint</h3>
-      <div class="pub">
-        <span class="n">[2]</span>
-        <div>
-          <p>
-            Devkota, S., Gautam, S., Acharya, G., <strong>Awasthi, B.</strong> &amp; Adhikari, B.R. —
-            <a href="https://doi.org/10.2139/ssrn.4655307" target="_blank" rel="noopener">
-              Developing a community-based landslide early-warning system for data-scarce areas: a case of Neelakantha Municipality, Dhading, Nepal.
-            </a>
-          </p>
-          <span class="venue">SSRN · DOI 10.2139/ssrn.4655307</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-group reveal">
-      <h3>Conferences &amp; Abstracts</h3>
-
-      <div class="pub">
-        <span class="n">[3]</span>
-        <div>
-          <p>
-            <strong>Awasthi, B.</strong>, Ninsawat, S., Raghavan, V. &amp; Nemoto, T. —
-            <a href="https://doi.org/10.5281/zenodo.16144781" target="_blank" rel="noopener">
-              PyGILE / PyGILE-Plus: a Python GeoInformatics Lab Environment (v1.0).
-            </a>
-          </p>
-          <span class="venue">Workshop &amp; oral presentation · FOSS4G Asia 2026, Nashik, India · DOI 10.5281/zenodo.16144781</span>
-        </div>
-      </div>
-
-      <div class="pub">
-        <span class="n">[4]</span>
-        <div>
-          <p>
-            <strong>Awasthi, B.</strong>, Goraju, S., Lohani, S., Karki, S., Devkota, S. &amp; Bhatta, Y.R. —
-            Predictive analytics for road-safety enhancement on the Mugling–Narayanghat road section, Nepal.
-          </p>
-          <span class="venue">Int'l Conf. on Big Data for Disaster Response and Management in Asia and the Pacific · ADB &amp; Tohoku University, Sendai, Japan, 2024 (under revision)</span>
-        </div>
-      </div>
-
-      <div class="pub">
-        <span class="n">[5]</span>
-        <div>
-          <p>
-            <strong>Awasthi, B.</strong>, Gajurel, A., Tait, A., Elvin, S., Elmore, A.C., Putnam, A.E. et al. —
-            Recent trend of glacial surface lowering in Khumbu Glacier, Everest region, Nepal.
-          </p>
-          <span class="venue">Abstract 713477 · AGU Fall Meeting 2020</span>
-        </div>
-      </div>
-
-      <div class="pub">
-        <span class="n">[6]</span>
-        <div>
-          <p>
-            Mattas, L.A., Putnam, A.E., Strand, P., Gajurel, A., <strong>Awasthi, B.</strong> et al. —
-            Documenting the last glacial maximum and termination of the Khumbu Glacier, Nepalese Himalaya.
-          </p>
-          <span class="venue">GC53G-1237 · AGU Fall Meeting 2019, San Francisco</span>
-        </div>
-      </div>
-    </div>
-
+    <!-- Popular articles aren't usually on ORCID, so these stay hand-written -->
     <div class="pub-group reveal">
       <h3>Field notes &amp; articles</h3>
 
       <div class="pub">
-        <span class="n">[7]</span>
+        <span class="n"></span>
         <div>
           <p>
             Maganini, M., <strong>Awasthi, B.</strong> &amp; Albayrak, A. —
@@ -759,7 +782,7 @@ gtag('config', 'G-CNC3FWJHTF');
       </div>
 
       <div class="pub">
-        <span class="n">[8]</span>
+        <span class="n"></span>
         <div>
           <p>
             <strong>Awasthi, B.</strong> —
@@ -772,7 +795,7 @@ gtag('config', 'G-CNC3FWJHTF');
       </div>
 
       <div class="pub">
-        <span class="n">[9]</span>
+        <span class="n"></span>
         <div>
           <p>
             <strong>Awasthi, B.</strong> —
@@ -785,7 +808,7 @@ gtag('config', 'G-CNC3FWJHTF');
       </div>
 
       <div class="pub">
-        <span class="n">[10]</span>
+        <span class="n"></span>
         <div>
           <p>
             <strong>Awasthi, B.</strong> —
@@ -798,7 +821,7 @@ gtag('config', 'G-CNC3FWJHTF');
       </div>
 
       <div class="pub">
-        <span class="n">[11]</span>
+        <span class="n"></span>
         <div>
           <p>
             <strong>Awasthi, B.</strong> —
@@ -881,6 +904,10 @@ gtag('config', 'G-CNC3FWJHTF');
           <div><span class="lab">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/bhuwan-awasthi-341081174/" target="_blank" rel="noopener">/in/bhuwan-awasthi</a></div>
         </div>
         <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 17.4H5.93V7.38h1.44V17.4zM6.65 6.3a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zM10.2 7.38h3.9c3.7 0 5.33 2.65 5.33 5.01 0 2.57-2.01 5.01-5.31 5.01H10.2V7.38zm1.44 1.3v7.42h2.3c3.26 0 4-2.48 4-3.71 0-2.01-1.28-3.71-4.08-3.71h-2.22z"/></svg>
+          <div><span class="lab">ORCID</span><a class="val" href="https://orcid.org/0000-0003-2052-2618" target="_blank" rel="noopener">0000-0003-2052-2618</a></div>
+        </div>
+        <div class="contact-row">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C18 5 19 5.3 19 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
           <div><span class="lab">GitHub</span><a class="val" href="https://github.com/VuOn7" target="_blank" rel="noopener">github.com/VuOn7</a></div>
         </div>
@@ -918,6 +945,148 @@ gtag('config', 'G-CNC3FWJHTF');
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---- publication numbering: [1], [2], ... across every list ----
+  function numberPubs(){
+    document.querySelectorAll('#publications .pub .n').forEach((el, i) => { el.textContent = '[' + (i + 1) + ']'; });
+  }
+  numberPubs();
+
+  // ---- live publications from ORCID ----
+  (function(){
+    const ORCID_ID = '0000-0003-2052-2618';
+    const MY_SURNAME = /awasthi/i;          // bolded in author lists
+    const MAX_AUTHORS = 8;                  // longer lists end in "et al."
+    const API = 'https://pub.orcid.org/v3.0/' + ORCID_ID;
+    const OPTS = { headers: { Accept: 'application/json' } };
+
+    const target = document.getElementById('orcid-pubs');
+    const syncBox = document.getElementById('pubSync');
+    const syncText = document.getElementById('pubSyncText');
+    const profileLink = '<a href="https://orcid.org/' + ORCID_ID + '" target="_blank" rel="noopener">ORCID</a>';
+
+    // ORCID work type → section on the page (order here = order on page)
+    const GROUPS = [
+      { title: 'Peer-reviewed journal articles', types: ['journal-article', 'review'] },
+      { title: 'Preprints',                      types: ['preprint', 'working-paper'] },
+      { title: 'Books & chapters',               types: ['book', 'book-chapter', 'edited-book'] },
+      { title: 'Conferences & abstracts',        types: ['conference-paper', 'conference-abstract', 'conference-poster', 'conference-presentation', 'conference-output', 'lecture-speech'] },
+      { title: 'Software & data',                types: ['software', 'data-set', 'research-tool'] },
+      { title: 'Reports & theses',               types: ['report', 'dissertation-thesis', 'supervised-student-publication'] },
+      { title: 'Other outputs',                  types: [] }
+    ];
+
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const val = o => (o && o.value) || '';
+
+    function formatName(full){
+      // "Bhuwan Awasthi" → "Awasthi, B."; leaves "Awasthi, B." style names alone
+      full = full.trim();
+      if (!full || full.includes(',')) return full;
+      const parts = full.split(/\s+/);
+      if (parts.length < 2) return full;
+      const last = parts.pop();
+      return last + ', ' + parts.map(p => p[0].toUpperCase() + '.').join('');
+    }
+
+    function authorsHTML(work){
+      const list = (((work || {}).contributors || {}).contributor || [])
+        .map(c => val(c['credit-name']))
+        .filter(Boolean);
+      if (!list.length) return '';
+      const names = list.slice(0, MAX_AUTHORS).map(n => {
+        const f = esc(formatName(n));
+        return MY_SURNAME.test(n) ? '<strong>' + f + '</strong>' : f;
+      });
+      let s;
+      if (list.length > MAX_AUTHORS) s = names.join(', ') + ' et al.';
+      else if (names.length > 1) s = names.slice(0, -1).join(', ') + ' &amp; ' + names[names.length - 1];
+      else s = names[0];
+      return s + ' — ';
+    }
+
+    function doiOf(item){
+      const ids = ((item['external-ids'] || {})['external-id']) || [];
+      const d = ids.find(x => (x['external-id-type'] || '').toLowerCase() === 'doi');
+      return d ? String(d['external-id-value']).replace(/^https?:\/\/(dx\.)?doi\.org\//i, '') : '';
+    }
+
+    function linkOf(item, doi){
+      if (doi) return 'https://doi.org/' + doi;
+      const u = val(item.url);
+      if (u) return u;
+      const ids = ((item['external-ids'] || {})['external-id']) || [];
+      const withUrl = ids.find(x => val(x['external-id-url']));
+      return withUrl ? val(withUrl['external-id-url']) : '';
+    }
+
+    function pubHTML(item){
+      const title = val((item.title || {}).title) || 'Untitled';
+      const sub = val((item.title || {}).subtitle);
+      const fullTitle = sub ? title + ': ' + sub : title;
+      const doi = doiOf(item);
+      const href = linkOf(item, doi);
+      const pd = item['publication-date'] || {};
+      const year = val(pd.year);
+      const venueBits = [val(item['journal-title']), year, doi ? 'DOI ' + doi : ''].filter(Boolean).map(esc);
+      const titleHTML = href
+        ? '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(fullTitle) + '.</a>'
+        : esc(fullTitle) + '.';
+      return '<div class="pub"><span class="n"></span><div><p>' + authorsHTML(item) + titleHTML + '</p>' +
+             (venueBits.length ? '<span class="venue">' + venueBits.join(' · ') + '</span>' : '') +
+             '</div></div>';
+    }
+
+    function sortKey(item){
+      const pd = item['publication-date'] || {};
+      return (parseInt(val(pd.year)) || 0) * 10000 + (parseInt(val(pd.month)) || 0) * 100 + (parseInt(val(pd.day)) || 0);
+    }
+
+    async function load(){
+      const res = await fetch(API + '/works', OPTS);
+      if (!res.ok) throw new Error('ORCID ' + res.status);
+      const data = await res.json();
+      // one entry per work (ORCID groups duplicates from different sources)
+      const summaries = (data.group || []).map(g => (g['work-summary'] || [])[0]).filter(Boolean);
+      if (!summaries.length) throw new Error('No works on ORCID');
+
+      // Full records carry the author lists; fetch in batches of up to 100
+      const full = {};
+      try {
+        for (let i = 0; i < summaries.length; i += 100) {
+          const codes = summaries.slice(i, i + 100).map(s => s['put-code']).join(',');
+          const r = await fetch(API + '/works/' + codes, OPTS);
+          if (!r.ok) continue;
+          const j = await r.json();
+          (j.bulk || []).forEach(b => { if (b.work) full[b.work['put-code']] = b.work; });
+        }
+      } catch (e) { /* authors are optional — titles still render */ }
+
+      const items = summaries.map(s => full[s['put-code']] || s);
+      const buckets = GROUPS.map(g => ({ title: g.title, types: g.types, items: [] }));
+      const other = buckets[buckets.length - 1];
+      items.forEach(it => {
+        const t = String(it.type || '').toLowerCase().replace(/_/g, '-');
+        (buckets.find(b => b.types.includes(t)) || other).items.push(it);
+      });
+
+      target.innerHTML = buckets
+        .filter(b => b.items.length)
+        .map(b => {
+          b.items.sort((a, c) => sortKey(c) - sortKey(a));
+          return '<div class="pub-group reveal in"><h3>' + esc(b.title) + '</h3>' + b.items.map(pubHTML).join('') + '</div>';
+        }).join('');
+
+      numberPubs();
+      syncBox.classList.add('live');
+      syncText.innerHTML = 'Synced live from ' + profileLink + ' · ' + items.length + (items.length === 1 ? ' research output' : ' research outputs');
+    }
+
+    load().catch(() => {
+      // keep the hand-written fallback list that is already on the page
+      syncText.innerHTML = 'Research outputs · full record on ' + profileLink;
+    });
+  })();
 
   // ---- contour-line hero (topographic signature) ----
   (function(){
