@@ -225,16 +225,15 @@ gtag('config', 'G-CNC3FWJHTF');
   .tag:hover{border-color:var(--glacier);color:var(--glacier-deep)}
 
   /* ---------- field / map ---------- */
-  #field{background:var(--ink);color:var(--paper)}
-  #field .eyebrow{color:var(--glacier-light)}
-  #field .eyebrow::before{background:var(--glacier-light)}
-  #field .section-head h2{color:var(--paper)}
-  #field .coord{color:rgba(236,238,233,.68);line-height:1.6}
-  .field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(236,238,233,.12);border:1px solid rgba(236,238,233,.12)}
-  .field-cell{background:var(--ink);padding:26px 22px}
-  .field-cell .c{font-family:var(--mono);font-size:.76rem;color:var(--glacier-light);letter-spacing:.04em}
-  .field-cell h4{font-size:1.1rem;margin:8px 0 6px;font-weight:600}
-  .field-cell p{font-size:.97rem;color:rgba(236,238,233,.75);line-height:1.6}
+  /* light, glacier-tinted panel (was dark ink) */
+  #field{background:#E3EEEE;color:var(--ink);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  #field .coord{color:var(--ink-soft);line-height:1.6}
+  .field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(11,77,88,.16);border:1px solid rgba(11,77,88,.16)}
+  .field-cell{background:#F2F7F6;padding:26px 22px;border-top:3px solid transparent;transition:border-color .25s,background .25s}
+  .field-cell:hover{background:#fff;border-top-color:var(--glacier)}
+  .field-cell .c{font-family:var(--mono);font-size:.76rem;color:var(--glacier);letter-spacing:.04em}
+  .field-cell h4{font-size:1.1rem;margin:8px 0 6px;font-weight:600;color:var(--ink)}
+  .field-cell p{font-size:.97rem;color:var(--ink-soft);line-height:1.6}
 
   /* ---------- publications ---------- */
   .pub-sync{
@@ -329,7 +328,7 @@ gtag('config', 'G-CNC3FWJHTF');
     .skills-grid,.field-grid,.stats-grid{grid-template-columns:1fr}
     .stat{border-right:0;border-bottom:1px solid var(--border)}
     .stat:last-child{border-bottom:0}
-    .field-cell{border-bottom:1px solid rgba(236,238,233,.12)}
+    .field-cell{border-bottom:1px solid rgba(11,77,88,.16)}
     .pub{grid-template-columns:1fr;gap:6px}
     .elev-rail{display:none}
   }
@@ -420,7 +419,7 @@ gtag('config', 'G-CNC3FWJHTF');
   <div class="wrap">
     <div class="stats-grid">
       <div class="stat"><span class="stat-num">2013</span><span class="stat-lab">Field work since</span></div>
-      <div class="stat"><span class="stat-num">20+</span><span class="stat-lab">Districts surveyed</span></div>
+      <div class="stat"><span class="stat-num">20+</span><span class="stat-lab">Districts across Nepal</span></div>
       <div class="stat"><span class="stat-num">4</span><span class="stat-lab">Countries of work</span></div>
     </div>
   </div>
@@ -703,6 +702,18 @@ gtag('config', 'G-CNC3FWJHTF');
           <span class="n"></span>
           <div>
             <p>
+              <strong>Awasthi, B.</strong>, Ninsawat, S., Tripathi, N.K. &amp; Chao, K.-C. —
+              <a href="https://doi.org/10.5194/egusphere-2026-4364" target="_blank" rel="noopener">
+                Road construction-triggered landslides: daily-resolution attribution and pre-construction suitability mapping in the Lali and Baku Gad watersheds of Himalaya, Far-Western Nepal.
+              </a>
+            </p>
+            <span class="venue">EGUsphere · 2026 · DOI 10.5194/egusphere-2026-4364</span>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
               Devkota, S., Gautam, S., Acharya, G., <strong>Awasthi, B.</strong> &amp; Adhikari, B.R. —
               <a href="https://doi.org/10.2139/ssrn.4655307" target="_blank" rel="noopener">
                 Developing a community-based landslide early-warning system for data-scarce areas: a case of Neelakantha Municipality, Dhading, Nepal.
@@ -736,7 +747,7 @@ gtag('config', 'G-CNC3FWJHTF');
               <strong>Awasthi, B.</strong>, Goraju, S., Lohani, S., Karki, S., Devkota, S. &amp; Bhatta, Y.R. —
               Predictive analytics for road-safety enhancement on the Mugling–Narayanghat road section, Nepal.
             </p>
-            <span class="venue">Int'l Conf. on Big Data for Disaster Response and Management in Asia and the Pacific · ADB &amp; Tohoku University, Sendai, Japan, 2024 (under revision)</span>
+            <span class="venue">Int'l Conf. on Big Data for Disaster Response and Management in Asia and the Pacific · ADB &amp; Tohoku University, Sendai, Japan, 2024</span>
           </div>
         </div>
 
@@ -957,6 +968,7 @@ gtag('config', 'G-CNC3FWJHTF');
     const ORCID_ID = '0000-0003-2052-2618';
     const MY_SURNAME = /awasthi/i;          // bolded in author lists
     const MAX_AUTHORS = 8;                  // longer lists end in "et al."
+
     const API = 'https://pub.orcid.org/v3.0/' + ORCID_ID;
     const OPTS = { headers: { Accept: 'application/json' } };
 
@@ -1063,9 +1075,18 @@ gtag('config', 'G-CNC3FWJHTF');
       } catch (e) { /* authors are optional — titles still render */ }
 
       const items = summaries.map(s => full[s['put-code']] || s);
+
       const buckets = GROUPS.map(g => ({ title: g.title, types: g.types, items: [] }));
       const other = buckets[buckets.length - 1];
+      // Preprint servers, recognised by DOI prefix or venue name, so a preprint
+      // that ORCID has labelled as a journal article still lands under Preprints
+      const PREPRINT_DOI = /^10\.(2139\/ssrn|31223\/|21203\/rs|22541\/au|48550\/arxiv|1101\/|20944\/preprints|5194\/egusphere|1002\/essoar|31219\/|31234\/|31235\/|26434\/chemrxiv)/i;
+      const PREPRINT_VENUE = /\b(ssrn|arxiv|biorxiv|medrxiv|eartharxiv|essoar|egusphere|research ?square|authorea|preprints\.org|osf preprints|chemrxiv|socarxiv|preprint)\b/i;
+      const isPreprint = it => PREPRINT_DOI.test(doiOf(it)) || PREPRINT_VENUE.test(val(it['journal-title']));
+      const preprints = buckets.find(b => b.title === 'Preprints');
+
       items.forEach(it => {
+        if (isPreprint(it)) { preprints.items.push(it); return; }
         const t = String(it.type || '').toLowerCase().replace(/_/g, '-');
         (buckets.find(b => b.types.includes(t)) || other).items.push(it);
       });
