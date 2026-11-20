@@ -678,7 +678,7 @@ gtag('config', 'G-CNC3FWJHTF');
           <span class="n"></span>
           <div>
             <p>
-              <strong>Awasthi, B.</strong>, Marasini, A. &amp; <strong>Awasthi, J.</strong> —
+              <strong>Awasthi, B.</strong>, Marasini, A. &amp; Awasthi, J. —
               <a href="https://doi.org/10.1371/journal.pone.0358906" target="_blank" rel="noopener">
                 Terrain, water, and the placement of sacred sites across Nepal&rsquo;s physiographic belts.
               </a>
@@ -970,7 +970,7 @@ gtag('config', 'G-CNC3FWJHTF');
   // ---- live publications from ORCID ----
   (function(){
     const ORCID_ID = '0000-0003-2052-2618';
-    const MY_SURNAME = /awasthi/i;          // bolded in author lists
+    const ME = /^awasthi,\s*b/i;            // bolded in author lists — matches "Awasthi, B." / "Awasthi, Bhuwan" only
     const MAX_AUTHORS = 8;                  // longer lists end in "et al."
 
     const API = 'https://pub.orcid.org/v3.0/' + ORCID_ID;
@@ -1015,7 +1015,7 @@ gtag('config', 'G-CNC3FWJHTF');
       if (!list.length) return '';
       const names = list.slice(0, MAX_AUTHORS).map(n => {
         const f = esc(formatName(n));
-        return MY_SURNAME.test(n) ? '<strong>' + f + '</strong>' : f;
+        return ME.test(formatName(n)) ? '<strong>' + f + '</strong>' : f;
       });
       let s;
       if (list.length > MAX_AUTHORS) s = names.join(', ') + ' et al.';
