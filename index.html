@@ -678,6 +678,18 @@ gtag('config', 'G-CNC3FWJHTF');
           <span class="n"></span>
           <div>
             <p>
+              <strong>Awasthi, B.</strong>, Marasini, A. &amp; <strong>Awasthi, J.</strong> —
+              <a href="https://doi.org/10.1371/journal.pone.0358906" target="_blank" rel="noopener">
+                Terrain, water, and the placement of sacred sites across Nepal&rsquo;s physiographic belts.
+              </a>
+            </p>
+            <span class="venue">PLOS One · 21(11), 2026 · DOI 10.1371/journal.pone.0358906</span>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="n"></span>
+          <div>
+            <p>
               <strong>Awasthi, B.</strong>, Ninsawat, S., Dhakal, S., Goraju, S., Lohani, S., Karki, S. &amp; Som-ard, J. —
               <a href="https://doi.org/10.1080/10106049.2026.2732733" target="_blank" rel="noopener">
                 Integrated watershed-based debris flow hazard assessment for road corridor management: a case study of the Mugling&ndash;Narayanghat road, Nepal.
@@ -995,6 +1007,9 @@ gtag('config', 'G-CNC3FWJHTF');
 
     function authorsHTML(work){
       const list = (((work || {}).contributors || {}).contributor || [])
+        // ORCID also lists the handling editor (and translators/chairs) as contributors —
+        // keep only authors. Many records leave the role empty, so empty counts as author.
+        .filter(c => !/editor|chair|translator/i.test(String(((c['contributor-attributes'] || {})['contributor-role']) || '')))
         .map(c => val(c['credit-name']))
         .filter(Boolean);
       if (!list.length) return '';
